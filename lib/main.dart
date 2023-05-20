@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:face_guessing/page/home_page.dart';
+import 'package:face_guessing/page/quiz/quiz_page.dart';
 import 'package:face_guessing/provider/domain_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,7 +31,8 @@ class _MyAppState extends ConsumerState<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: HomePage(),
+        //元はHomePage
+        home: QuizPage(),
     );
   }
 }
