@@ -62,7 +62,7 @@ class _QuizPageState extends State<QuizPage> {
                            context: context,
                            barrierDismissible: false,
                            builder: (_) {
-                             return Dialog(player: "プレイヤー１",);
+                             return Dialog(player: "プレイヤー１", rotate: pi,);
                            });
                      },
                    ),
@@ -82,7 +82,7 @@ class _QuizPageState extends State<QuizPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) {
-                          return Dialog(player: 'プレイヤー３',);
+                          return Dialog(player: 'プレイヤー３', rotate: 0,);
                         });
                   },
                 ),
@@ -101,7 +101,7 @@ class _QuizPageState extends State<QuizPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) {
-                          return Dialog(player: 'プレイヤー２',);
+                          return Dialog(player: 'プレイヤー２', rotate: pi / 2,);
                         });
                   },
                 )
@@ -120,7 +120,7 @@ class _QuizPageState extends State<QuizPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) {
-                          return Dialog(player: 'プレイヤー４',);
+                          return Dialog(player: 'プレイヤー４', rotate: 3 * pi / 2,);
                         });
                   },
                 )
@@ -135,26 +135,30 @@ class _QuizPageState extends State<QuizPage> {
 
 class Dialog extends StatelessWidget {
   final String player;
-  const Dialog({Key? key, required this.player}) : super(key: key);
+  final double rotate;
+  const Dialog({Key? key, required this.player, required this.rotate}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SimpleDialog(
-      title: Text("$playerの回答"),
-      children: [
-        SimpleDialogOption(
-          child: Text("選択肢1"),
-        ),
-        SimpleDialogOption(
-          child: Text("選択肢2"),
-        ),
-        SimpleDialogOption(
-          child: Text("選択肢3"),
-        ),
-        SimpleDialogOption(
-          child: Text("選択肢4"),
-        ),
-      ],
+    return Transform.rotate(
+      angle: rotate,
+      child: SimpleDialog(
+        title: Text("$playerの回答"),
+        children: [
+          SimpleDialogOption(
+            child: Text("選択肢1"),
+          ),
+          SimpleDialogOption(
+            child: Text("選択肢2"),
+          ),
+          SimpleDialogOption(
+            child: Text("選択肢3"),
+          ),
+          SimpleDialogOption(
+            child: Text("選択肢4"),
+          ),
+        ],
+      ),
     );
   }
 }
