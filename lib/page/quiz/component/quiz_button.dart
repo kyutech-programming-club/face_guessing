@@ -3,9 +3,17 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 import 'dart:async';
 
 class QuizButton extends StatelessWidget {
+  final int score;
+  final Color color;
   final double time_counter;
   final void Function() onPressed;
-  const QuizButton({Key? key, required this.time_counter, required this.onPressed}) : super(key: key);
+  const QuizButton({
+    Key? key,
+    required this.time_counter,
+    required this.onPressed,
+    required this.score,
+    required this.color
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +24,22 @@ class QuizButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElevatedButton(
-                child: const Text('Button1'),
-                style:
-                ElevatedButton.styleFrom(
-                  primary: Colors.grey[300],
-                  onPrimary: Colors.black,
-                ),
-                onPressed: onPressed,
+              Column(
+                children: [
+                  ElevatedButton(
+                    child: const Text('Answer'),
+                    style:
+                    ElevatedButton.styleFrom(
+                      primary: Colors.grey[300],
+                      onPrimary: Colors.black,
+                    ),
+                    onPressed: onPressed,
+                  ),
+                  Chip(
+                    label: Text("$score pt"),
+                    backgroundColor: color,
+                  )
+                ],
               ),
             ],
           ),

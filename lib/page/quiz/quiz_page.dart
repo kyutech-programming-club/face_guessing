@@ -5,17 +5,18 @@ import 'package:face_guessing/page/quiz/component/face.dart';
 import 'package:face_guessing/page/quiz/component/quiz_button.dart';
 import 'package:face_guessing/page/quiz/component/transformed_left_button.dart';
 import 'package:face_guessing/page/quiz/component/transformed_right_button.dart';
+import 'package:face_guessing/provider/presentation_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class QuizPage extends StatefulWidget {
+class QuizPage extends ConsumerStatefulWidget {
   const QuizPage({Key? key}) : super(key: key);
 
   @override
-  State<QuizPage> createState() => _QuizPageState();
+  ConsumerState<QuizPage> createState() => _QuizPageState();
 }
 
-class _QuizPageState extends State<QuizPage> {
-
+class _QuizPageState extends ConsumerState<QuizPage> {
   double time_counter = 30;
 
   @override
@@ -38,6 +39,11 @@ class _QuizPageState extends State<QuizPage> {
   Widget build(BuildContext context) {
     final _deviceWidth = MediaQuery.of(context).size.width;
     final _deviceHeight = MediaQuery.of(context).size.height;
+    final score1 = ref.watch(Player1Score);
+    final score2 = ref.watch(Player2Score);
+    final score3 = ref.watch(Player3Score);
+    final score4 = ref.watch(Player4Score);
+
     return Scaffold(
       body: SizedBox(
         width: _deviceWidth,
@@ -52,9 +58,8 @@ class _QuizPageState extends State<QuizPage> {
              child: Transform.rotate(
                  angle: pi,
                  child: Container(
-                   height: 100,
+                   height: 140,
                    width: 400,
-                   color: Colors.red,
                    child: QuizButton(
                      time_counter: time_counter,
                      onPressed: () async{
@@ -64,7 +69,9 @@ class _QuizPageState extends State<QuizPage> {
                            builder: (_) {
                              return Dialog(player: "プレイヤー１", rotate: pi,);
                            });
-                     },
+                       },
+                     score: score1,
+                     color: Colors.deepOrangeAccent,
                    ),
                  ),
              ),
@@ -72,9 +79,8 @@ class _QuizPageState extends State<QuizPage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: 100,
+                height: 140,
                 width: 400,
-                color: Colors.blue,
                 child: QuizButton(
                   time_counter: time_counter,
                   onPressed: () async{
@@ -84,7 +90,9 @@ class _QuizPageState extends State<QuizPage> {
                         builder: (_) {
                           return Dialog(player: 'プレイヤー３', rotate: 0,);
                         });
-                  },
+                    },
+                  score: score3,
+                  color: Colors.lightBlueAccent,
                 ),
               ),
             ),
@@ -92,8 +100,7 @@ class _QuizPageState extends State<QuizPage> {
               alignment: Alignment.centerLeft,
               child: Container(
                 height: 400,
-                width: 100,
-                color: Colors.green,
+                width: 120,
                 child: QuizButtonLeft(
                   time_counter: time_counter,
                   onPressed: () async{
@@ -103,7 +110,7 @@ class _QuizPageState extends State<QuizPage> {
                         builder: (_) {
                           return Dialog(player: 'プレイヤー２', rotate: pi / 2,);
                         });
-                  },
+                    },
                 )
               ),
             ),
@@ -111,8 +118,7 @@ class _QuizPageState extends State<QuizPage> {
               alignment: Alignment.centerRight,
               child: Container(
                 height: 400,
-                width: 100,
-                color: Colors.yellow,
+                width: 109,
                 child: QuizButtonRight(
                   time_counter: time_counter,
                   onPressed: () async{
@@ -122,7 +128,7 @@ class _QuizPageState extends State<QuizPage> {
                         builder: (_) {
                           return Dialog(player: 'プレイヤー４', rotate: 3 * pi / 2,);
                         });
-                  },
+                    },
                 )
               ),
             )
