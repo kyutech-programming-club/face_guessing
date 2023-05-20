@@ -12,13 +12,13 @@ class RegisterPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final image = ref.read(faceImageProvider);
+    final image = ref.watch(faceImageProvider);
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            image != null ? Image.memory(image) : const SizedBox.shrink(),
+
             ElevatedButton(
               child: Text('登録する'),
               onPressed: () {
@@ -29,7 +29,8 @@ class RegisterPage extends ConsumerWidget {
                   ),
                 );
               },
-            ),           ElevatedButton(
+            ),
+            ElevatedButton(
               child: Text('スタート'),
               onPressed: () {
                 Navigator.push(
