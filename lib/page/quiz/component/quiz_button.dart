@@ -4,7 +4,8 @@ import 'dart:async';
 
 class QuizButton extends StatelessWidget {
   final double time_counter;
-  const QuizButton({Key? key, required this.time_counter}) : super(key: key);
+  final void Function() onPressed;
+  const QuizButton({Key? key, required this.time_counter, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class QuizButton extends StatelessWidget {
                   primary: Colors.grey[300],
                   onPrimary: Colors.black,
                 ),
-                onPressed: () {},
+                onPressed: onPressed,
               ),
             ],
           ),

@@ -5,7 +5,8 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 
 class QuizButtonLeft extends StatelessWidget {
   final double time_counter;
-  const QuizButtonLeft({Key? key, required this.time_counter}) : super(key: key);
+  final void Function() onPressed;
+  const QuizButtonLeft({Key? key, required this.time_counter, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class QuizButtonLeft extends StatelessWidget {
                     primary: Colors.grey[300],
                     onPrimary: Colors.black,
                   ),
-                  onPressed: () {},
+                  onPressed: onPressed,
                 ),
               ),
             ],

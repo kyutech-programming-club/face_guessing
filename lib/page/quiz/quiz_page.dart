@@ -55,7 +55,17 @@ class _QuizPageState extends State<QuizPage> {
                    height: 100,
                    width: 400,
                    color: Colors.red,
-                   child: QuizButton(time_counter: time_counter,),
+                   child: QuizButton(
+                     time_counter: time_counter,
+                     onPressed: () async{
+                       final String? selectedText = await showDialog<String>(
+                           context: context,
+                           barrierDismissible: false,
+                           builder: (_) {
+                             return Dialog(player: "プレイヤー１",);
+                           });
+                     },
+                   ),
                  ),
              ),
            ),
@@ -65,7 +75,17 @@ class _QuizPageState extends State<QuizPage> {
                 height: 100,
                 width: 400,
                 color: Colors.blue,
-                child: QuizButton(time_counter: time_counter,),
+                child: QuizButton(
+                  time_counter: time_counter,
+                  onPressed: () async{
+                    final String? selectedText = await showDialog<String>(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (_) {
+                          return Dialog(player: 'プレイヤー３',);
+                        });
+                  },
+                ),
               ),
             ),
             Align(
@@ -74,7 +94,17 @@ class _QuizPageState extends State<QuizPage> {
                 height: 400,
                 width: 100,
                 color: Colors.green,
-                child: QuizButtonLeft(time_counter: time_counter,)
+                child: QuizButtonLeft(
+                  time_counter: time_counter,
+                  onPressed: () async{
+                    final String? selectedText = await showDialog<String>(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (_) {
+                          return Dialog(player: 'プレイヤー２',);
+                        });
+                  },
+                )
               ),
             ),
             Align(
@@ -83,12 +113,48 @@ class _QuizPageState extends State<QuizPage> {
                 height: 400,
                 width: 100,
                 color: Colors.yellow,
-                child: QuizButtonRight(time_counter: time_counter,)
+                child: QuizButtonRight(
+                  time_counter: time_counter,
+                  onPressed: () async{
+                    final String? selectedText = await showDialog<String>(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (_) {
+                          return Dialog(player: 'プレイヤー４',);
+                        });
+                  },
+                )
               ),
             )
           ],
         ),
       ),
+    );
+  }
+}
+
+class Dialog extends StatelessWidget {
+  final String player;
+  const Dialog({Key? key, required this.player}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialog(
+      title: Text("$playerの回答"),
+      children: [
+        SimpleDialogOption(
+          child: Text("選択肢1"),
+        ),
+        SimpleDialogOption(
+          child: Text("選択肢2"),
+        ),
+        SimpleDialogOption(
+          child: Text("選択肢3"),
+        ),
+        SimpleDialogOption(
+          child: Text("選択肢4"),
+        ),
+      ],
     );
   }
 }
