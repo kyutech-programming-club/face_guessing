@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:math';
+import '../../../provider/presentation_provider.dart';
 import 'quiz_button.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
-class QuizButtonLeft extends StatelessWidget {
+class QuizButtonLeft extends ConsumerWidget {
   final double time_counter;
   final void Function() onPressed;
   const QuizButtonLeft({Key? key, required this.time_counter, required this.onPressed}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final score2 = ref.watch(Player2Score);
     return Scaffold(
       body: Row(
         children: [
@@ -26,14 +29,22 @@ class QuizButtonLeft extends StatelessWidget {
             children: [
               Transform.rotate(
                 angle: pi / 2,
-                child: ElevatedButton(
-                  child: const Text('Button1'),
-                  style:
-                  ElevatedButton.styleFrom(
-                    primary: Colors.grey[300],
-                    onPrimary: Colors.black,
-                  ),
-                  onPressed: onPressed,
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      child: const Text('Answer'),
+                      style:
+                      ElevatedButton.styleFrom(
+                        primary: Colors.grey[300],
+                        onPrimary: Colors.black,
+                      ),
+                      onPressed: onPressed,
+                    ),
+                    Chip(
+                      label: Text("$score2 pt"),
+                      backgroundColor: Colors.cyanAccent,
+                    )
+                  ],
                 ),
               ),
             ],

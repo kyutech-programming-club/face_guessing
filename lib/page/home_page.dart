@@ -10,7 +10,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final image = ref.read(faceImageProvider);
+    final image = ref.watch(faceImageProvider);
     return Scaffold(
       body: Center(
         child: Column(
