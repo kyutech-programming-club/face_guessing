@@ -41,6 +41,7 @@ dependencies:
   flutter_riverpod: ^2.3.6
   image: ^4.0.17
   widget_mask: ^1.0.0+0
+  flutter_animation_progress_bar: ^2.3.1
 
 dev_dependencies:
   flutter_test:

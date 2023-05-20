@@ -1,65 +1,42 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'quiz_button.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
 class QuizButtonLeft extends StatelessWidget {
-  const QuizButtonLeft({Key? key}) : super(key: key);
+  final double time_counter;
+  const QuizButtonLeft({Key? key, required this.time_counter}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      body: Row(
         children: [
-          Transform.rotate(
-            angle: pi / 2,
-            child: ElevatedButton(
-              child: const Text('Button1'),
-              style:
-              ElevatedButton.styleFrom(
-                primary: Colors.grey[300],
-                onPrimary: Colors.black,
-              ),
-              onPressed: () {},
-            ),
+          FAProgressBar(
+            currentValue: time_counter,
+            maxValue: 30,
+            progressColor: Colors.green,
+            direction: Axis.vertical,
+            verticalDirection: VerticalDirection.down,
           ),
-          Transform.rotate(
-            angle: pi / 2,
-            child: ElevatedButton(
-              child: const Text('Button2'),
-              style:
-              ElevatedButton.styleFrom(
-                primary: Colors.grey[300],
-                onPrimary: Colors.black,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Transform.rotate(
+                angle: pi / 2,
+                child: ElevatedButton(
+                  child: const Text('Button1'),
+                  style:
+                  ElevatedButton.styleFrom(
+                    primary: Colors.grey[300],
+                    onPrimary: Colors.black,
+                  ),
+                  onPressed: () {},
+                ),
               ),
-              onPressed: () {},
-            ),
+            ],
           ),
-          Transform.rotate(
-            angle: pi / 2,
-            child: ElevatedButton(
-              child: const Text('Button3'),
-              style:
-              ElevatedButton.styleFrom(
-                primary: Colors.grey[300],
-                onPrimary: Colors.black,
-              ),
-              onPressed: () {},
-            ),
-          ),
-          Transform.rotate(
-            angle: pi / 2,
-            child: ElevatedButton(
-              child: const Text('Button4'),
-              style:
-              ElevatedButton.styleFrom(
-                primary: Colors.grey[300],
-                onPrimary: Colors.black,
-              ),
-              onPressed: () {},
-            ),
-          )
-
         ],
       ),
     );
