@@ -1,52 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'dart:async';
 
 class QuizButton extends StatelessWidget {
-  const QuizButton({Key? key}) : super(key: key);
+  final double time_counter;
+  const QuizButton({Key? key, required this.time_counter}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      body: Column(
         children: [
-          ElevatedButton(
-            child: const Text('Button1'),
-            style:
-            ElevatedButton.styleFrom(
-              primary: Colors.grey[300],
-              onPrimary: Colors.black,
-            ),
-            onPressed: () {},
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                child: const Text('Button1'),
+                style:
+                ElevatedButton.styleFrom(
+                  primary: Colors.grey[300],
+                  onPrimary: Colors.black,
+                ),
+                onPressed: () {},
+              ),
+            ],
           ),
-          ElevatedButton(
-            child: const Text('Button2'),
-            style:
-            ElevatedButton.styleFrom(
-              primary: Colors.grey[300],
-              onPrimary: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-          ElevatedButton(
-            child: const Text('Button3'),
-            style:
-            ElevatedButton.styleFrom(
-              primary: Colors.grey[300],
-              onPrimary: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-          ElevatedButton(
-            child: const Text('Button4'),
-            style:
-            ElevatedButton.styleFrom(
-              primary: Colors.grey[300],
-              onPrimary: Colors.black,
-            ),
-            onPressed: () {},
+          FAProgressBar(
+            currentValue: time_counter,
+            maxValue: 30,
+            progressColor: Colors.green,
           )
-
         ],
       ),
     );
