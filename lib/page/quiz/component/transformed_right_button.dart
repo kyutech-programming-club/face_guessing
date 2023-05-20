@@ -13,7 +13,7 @@ class QuizButtonRight extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final score4 = ref.watch(Player4Score);
+    final score4 = ref.watch(userEntitiesProvider)[3].score;
     return Scaffold(
       body: Row(
         children: [

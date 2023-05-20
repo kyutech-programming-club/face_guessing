@@ -39,10 +39,13 @@ class _QuizPageState extends ConsumerState<QuizPage> {
   Widget build(BuildContext context) {
     final _deviceWidth = MediaQuery.of(context).size.width;
     final _deviceHeight = MediaQuery.of(context).size.height;
-    final score1 = ref.watch(Player1Score);
-    final score2 = ref.watch(Player2Score);
-    final score3 = ref.watch(Player3Score);
-    final score4 = ref.watch(Player4Score);
+    final userlist = ref.watch(userEntitiesProvider);
+    final score1 = userlist[0].score;
+    final score3 = userlist[2].score;
+    final user1 = userlist[0].name;
+    final user2 = userlist[1].name;
+    final user3 = userlist[2].name;
+    final user4 = userlist[3].name;
 
     return Scaffold(
       body: SizedBox(
@@ -67,7 +70,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
                            context: context,
                            barrierDismissible: false,
                            builder: (_) {
-                             return Dialog(player: "プレイヤー１", rotate: pi,);
+                             return Dialog(player: user1, rotate: pi,);
                            });
                        },
                      score: score1,
@@ -88,7 +91,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) {
-                          return Dialog(player: 'プレイヤー３', rotate: 0,);
+                          return Dialog(player: user3, rotate: 0,);
                         });
                     },
                   score: score3,
@@ -108,7 +111,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) {
-                          return Dialog(player: 'プレイヤー２', rotate: pi / 2,);
+                          return Dialog(player: user2, rotate: pi / 2,);
                         });
                     },
                 )
@@ -126,7 +129,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) {
-                          return Dialog(player: 'プレイヤー４', rotate: 3 * pi / 2,);
+                          return Dialog(player: user4, rotate: 3 * pi / 2,);
                         });
                     },
                 )
@@ -139,29 +142,39 @@ class _QuizPageState extends ConsumerState<QuizPage> {
   }
 }
 
-class Dialog extends StatelessWidget {
+class Dialog extends ConsumerWidget {
   final String player;
   final double rotate;
   const Dialog({Key? key, required this.player, required this.rotate}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userlist = ref.watch(userEntitiesProvider);
+    String choice1 = userlist[0].name;
+    String choice2 = userlist[1].name;
+    String choice3 = userlist[2].name;
+    String choice4 = userlist[3].name;
     return Transform.rotate(
       angle: rotate,
       child: SimpleDialog(
         title: Text("$playerの回答"),
         children: [
           SimpleDialogOption(
-            child: Text("選択肢1"),
+            child: Text(choice1),
+            onPressed: (){
+              if(choice1 == choice1){
+                ref.read(userEntitiesProvider.notifier).addScore(player);
+              }
+            },
           ),
           SimpleDialogOption(
-            child: Text("選択肢2"),
+            child: Text(choice2),
           ),
           SimpleDialogOption(
-            child: Text("選択肢3"),
+            child: Text(choice3),
           ),
           SimpleDialogOption(
-            child: Text("選択肢4"),
+            child: Text(choice4),
           ),
         ],
       ),
