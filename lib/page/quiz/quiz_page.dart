@@ -1,3 +1,4 @@
+import 'package:face_guessing/page/quiz/component/face.dart';
 import 'package:face_guessing/page/quiz/component/quiz_button.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,13 @@ class QuizPage extends StatelessWidget {
       body: Stack(
         alignment: AlignmentDirectional.center,
         children: [
-          QuizButton()
+          Container(
+            color: Colors.black,
+            height: 100,
+            width: 200,
+          ),
+          QuizButton(),
+          Face()
         ],
       ),
     );
