@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:face_guessing/constant/color_constant.dart';
 import 'package:face_guessing/page/home_page.dart';
 import 'package:face_guessing/page/register/component/confirm_page.dart';
+import 'package:face_guessing/page/register/name_page.dart';
 import 'package:face_guessing/provider/presentation_provider.dart';
 import 'package:face_guessing/utils/context_extension.dart';
 import 'package:flutter/foundation.dart';
@@ -47,7 +48,7 @@ class TakePictureButton extends ConsumerWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ConfirmPage(),
+              builder: (context) => NamePage(),
             ),
           );
         },

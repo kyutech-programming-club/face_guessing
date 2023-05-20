@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:face_guessing/page/camera/camera_page.dart';
 import 'package:face_guessing/page/register/component/register_page.dart';
 import 'package:flutter/material.dart';
@@ -9,19 +11,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() => runApp(ConfirmPage());
 
-class ConfirmPage extends StatelessWidget {
+class ConfirmPage extends ConsumerWidget {
+  const ConfirmPage({super.key});
+
+  get ref => null;
+
 
   //画面に描画するデータリスト作成
-  final List<String> texts = [
-    '1', '2', '3', '4',
-  ];
+
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final texts = ref.watch(userEntitiesProvider);
+    final images = ref.watch(userEntitiesProvider);
     return MaterialApp(
 
       home: Scaffold(
-        appBar: AppBar(title: Text('Gridview デモ'),
+        appBar: AppBar(title: Text('確認画面'),
         ),
           floatingActionButton: Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -71,12 +77,17 @@ class ConfirmPage extends StatelessWidget {
           ),
           //指定した要素の数分を生成
           itemBuilder: (context, index) {
-            return Container(
-              color: Colors.blue.shade100,
-              child: Center(
-                  child: Text(texts[index],
-                style: TextStyle(fontSize: 50,),
-              )),
+            final image = texts[index].imageValue;
+            return SizedBox(
+              height: 100,
+              child: Column(
+                children: [
+                  Image.memory(image),
+                  Text(texts[index].name,
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
+                ],
+              ),
             );
           },
         ),
