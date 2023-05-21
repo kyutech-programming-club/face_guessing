@@ -33,7 +33,7 @@ class _FaceState extends State<Face> {
           (Timer timer) {
         int R = 70;
         counter = counter + 0.001;
-        top_counter = 3*R*sin(counter) - 2*R*sin(3/2*R*counter);
+        top_counter = 3*R*sin(counter) - 2*R*sin(3/2*R*counter) + 100;
         left_counter = 3*R*cos(counter) - 2*R*cos(3/2*R*counter);
         setState(() {});
       },
@@ -43,8 +43,8 @@ class _FaceState extends State<Face> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
-      width: 300,
+      height: 400,
+      width: 400,
       child: MaskWidget(
           top: top_counter,
           left: left_counter,
@@ -52,8 +52,8 @@ class _FaceState extends State<Face> {
           childSaveLayer: true,
           mask: Image.memory(
             widget.image,
-            height: 300,
-            width: 300,
+            height: 400,
+            width: 400,
           ),
           child: Center(
             child: Container(
