@@ -23,7 +23,7 @@ final cameraProvider = FutureProvider.autoDispose<CameraController?>(
 
 final faceImageProvider = StateProvider<Uint8List?>((ref) => null);
 
-final Player1Score = StateProvider<int>((ref) => 0);
+final Player1Score = StateProvider<int>((ref) => 100);
 final Player2Score = StateProvider<int>((ref) => 0);
 final Player3Score = StateProvider<int>((ref) => 0);
 final Player4Score = StateProvider<int>((ref) => 0);
