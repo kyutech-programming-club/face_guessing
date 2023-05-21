@@ -43,8 +43,8 @@ class _State extends ConsumerState<NamePage> {
                   child: Text('確定'),
                   onPressed: () {
                     final inputname = myController.text;
-                      ref.read(userEntitiesProvider.notifier).addUserEntity(UserEntity(name: inputname, imageValue: image!, score: 0));
-                      Navigator.push(
+                    ref.read(userEntitiesProvider.notifier).addUserEntity(UserEntity(name: inputname, imageValue: image!, score: 0));
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ConfirmPage(),
