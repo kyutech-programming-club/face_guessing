@@ -13,6 +13,7 @@ class QuizButtonLeft extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final score2 = ref.watch(userEntitiesProvider)[1].score;
+    final name2 = ref.watch(userEntitiesProvider)[1].name;
     return Scaffold(
       body: Row(
         children: [
@@ -40,9 +41,14 @@ class QuizButtonLeft extends ConsumerWidget {
                       ),
                       onPressed: onPressed,
                     ),
-                    Chip(
-                      label: Text("$score2 pt"),
-                      backgroundColor: Colors.cyanAccent,
+                    Row(
+                      children: [
+                        Text(name2),
+                        Chip(
+                          label: Text("$score2 pt"),
+                          backgroundColor: Colors.cyanAccent,
+                        ),
+                      ],
                     )
                   ],
                 ),
