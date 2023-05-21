@@ -31,7 +31,7 @@ class CameraPageState extends ConsumerState<CameraPage> {
   Widget build(BuildContext context) {
     final controller = ref.watch(cameraProvider);
     final double left = 24;
-    final double top = 152;
+    final double top = 172;
 
 
     return Scaffold(
@@ -92,7 +92,7 @@ class CameraPageState extends ConsumerState<CameraPage> {
               top: top,
               left: left,
               child: Container(
-                height: 144,
+                height: 400,
                 width: context.screenWidth - left * 2,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.red, width: 4),
