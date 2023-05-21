@@ -6,6 +6,7 @@ import 'package:face_guessing/page/quiz/component/face.dart';
 import 'package:face_guessing/page/quiz/component/quiz_button.dart';
 import 'package:face_guessing/page/quiz/component/transformed_left_button.dart';
 import 'package:face_guessing/page/quiz/component/transformed_right_button.dart';
+import 'package:face_guessing/page/register/component/register_page.dart';
 import 'package:face_guessing/provider/presentation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -109,7 +110,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
               alignment: Alignment.centerLeft,
               child: Container(
                 height: 400,
-                width: 120,
+                width: 140,
                 child: QuizButtonLeft(
                   time_counter: time_counter,
                   onPressed: () async{
@@ -127,7 +128,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
               alignment: Alignment.centerRight,
               child: Container(
                 height: 400,
-                width: 109,
+                width: 134,
                 child: QuizButtonRight(
                   time_counter: time_counter,
                   onPressed: () async{
@@ -177,14 +178,16 @@ class Dialog extends ConsumerWidget {
                 ref.read(userEntitiesProvider.notifier).addScore(player);
                 showDialog<void>(
                     context: context,
+                    barrierDismissible: false,
                     builder: (_) {
-                      return popupanswer(title: "Congratulation!", index: index);
+                      return popupanswer(title: "Congratulation!", index: index, rotate: rotate,);
                     });
               }else{
                 showDialog<void>(
                     context: context,
+                    barrierDismissible: false,
                     builder: (_) {
-                      return popupanswer(title: "Miss...", index: index);
+                      return popupanswer(title: "Miss...", index: index, rotate: rotate,);
                     });
               }
             },
@@ -196,14 +199,16 @@ class Dialog extends ConsumerWidget {
                 ref.read(userEntitiesProvider.notifier).addScore(player);
                 showDialog<void>(
                     context: context,
+                    barrierDismissible: false,
                     builder: (_) {
-                      return popupanswer(title: "Congratulation!", index: index);
+                      return popupanswer(title: "Congratulation!", index: index, rotate: rotate,);
                     });
               }else{
                 showDialog<void>(
                     context: context,
+                    barrierDismissible: false,
                     builder: (_) {
-                      return popupanswer(title: "Miss...", index: index);
+                      return popupanswer(title: "Miss...", index: index, rotate: rotate,);
                     });
               }
             },
@@ -215,14 +220,16 @@ class Dialog extends ConsumerWidget {
                 ref.read(userEntitiesProvider.notifier).addScore(player);
                 showDialog<void>(
                     context: context,
+                    barrierDismissible: false,
                     builder: (_) {
-                      return popupanswer(title: "Congratulation!", index: index);
+                      return popupanswer(title: "Congratulation!", index: index, rotate: rotate,);
                     });
               }else{
                 showDialog<void>(
                     context: context,
+                    barrierDismissible: false,
                     builder: (_) {
-                      return popupanswer(title: "Miss...", index: index);
+                      return popupanswer(title: "Miss...", index: index, rotate: rotate,);
                     });
               }
             },
@@ -234,14 +241,16 @@ class Dialog extends ConsumerWidget {
                 ref.read(userEntitiesProvider.notifier).addScore(player);
                 showDialog<void>(
                     context: context,
+                    barrierDismissible: false,
                     builder: (_) {
-                      return popupanswer(title: "Congratulation!", index: index);
+                      return popupanswer(title: "Congratulation!", index: index, rotate: rotate,);
                     });
               }else{
                 showDialog<void>(
                     context: context,
+                    barrierDismissible: false,
                     builder: (_) {
-                      return popupanswer(title: "Miss...", index: index);
+                      return popupanswer(title: "Miss...", index: index, rotate: rotate,);
                     });
               }
             },
@@ -255,32 +264,81 @@ class Dialog extends ConsumerWidget {
 class popupanswer extends ConsumerWidget {
   final String title;
   final int index;
+  final double rotate;
 
-  const popupanswer({Key? key, required this.title, required this.index}) : super(key: key);
+  const popupanswer({Key? key, required this.title, required this.index, required this.rotate}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Uint8List image = ref.watch(userEntitiesProvider)[index].imageValue;
-    return AlertDialog(
-      title: Text(title),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      content: Image.memory(image),
-      actions: <Widget>[
-        GestureDetector(
-          child: Text("OK",
-            style: TextStyle(
-              fontSize: 30,
-            ),
+    final String correct = ref.watch(userEntitiesProvider)[index].name;
+    return Transform.rotate(
+      angle: rotate,
+      child: AlertDialog(
+        title: Text(title),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        content: SizedBox(
+          height: 200,
+          child: Column(
+            children: [
+              Image.memory(image),
+              Text(correct,
+              style: TextStyle(
+                fontSize: 30,
+              ),
+              ),
+            ],
           ),
-          onTap: (){
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (BuildContext context) => const QuizPage())
+        ),
+        actions: <Widget>[
+          GestureDetector(
+            child: OutlinedButton(
+              child: const Text('Continue'),
+              style: OutlinedButton.styleFrom(
+                primary: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                side: const BorderSide(),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (BuildContext context) => const QuizPage())
                 );
-          },
-        )
-      ],
+              },
+            ),
+            onTap: (){
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (BuildContext context) => const QuizPage())
+                  );
+            },
+          ),
+          GestureDetector(
+            child: OutlinedButton(
+              child: const Text('End'),
+              style: OutlinedButton.styleFrom(
+                primary: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                side: const BorderSide(),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (BuildContext context) => const RegisterPage())
+                );
+              },
+            ),
+            onTap: (){
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (BuildContext context) => const RegisterPage())
+              );
+            },
+          )
+        ],
+      ),
     );
   }
 }
