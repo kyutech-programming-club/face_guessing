@@ -1,11 +1,13 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:face_guessing/page/quiz/component/mask_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_mask/widget_mask.dart';
 
 class Face extends StatefulWidget {
-  const Face({Key? key}) : super(key: key);
+  final Uint8List image;
+  const Face({Key? key, required this.image}) : super(key: key);
 
   @override
   State<Face> createState() => _FaceState();
@@ -44,8 +46,8 @@ class _FaceState extends State<Face> {
           left: left_counter,
           blendMode : BlendMode. srcATop,
           childSaveLayer: true,
-          mask: Image.network(
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+          mask: Image.memory(
+            widget.image,
             height: 300,
             width: 300,
           ),

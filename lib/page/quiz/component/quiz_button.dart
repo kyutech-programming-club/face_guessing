@@ -7,12 +7,14 @@ class QuizButton extends StatelessWidget {
   final Color color;
   final double time_counter;
   final void Function() onPressed;
+  final String name;
   const QuizButton({
     Key? key,
     required this.time_counter,
     required this.onPressed,
     required this.score,
-    required this.color
+    required this.color,
+    required this.name
   }) : super(key: key);
 
   @override
@@ -35,9 +37,14 @@ class QuizButton extends StatelessWidget {
                     ),
                     onPressed: onPressed,
                   ),
-                  Chip(
-                    label: Text("$score pt"),
-                    backgroundColor: color,
+                  Row(
+                    children: [
+                      Text(name),
+                      Chip(
+                        label: Text("$score pt"),
+                        backgroundColor: color,
+                      ),
+                    ],
                   )
                 ],
               ),
