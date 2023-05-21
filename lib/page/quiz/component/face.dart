@@ -57,10 +57,13 @@ class _FaceState extends State<Face> {
           ),
           child: Center(
             child: Container(
-              color: Colors.white,
-              height: 30,
-              width: 30,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
               ),
+              height: 50,
+              width: 50,
+            ),
             ),
           )
     );
