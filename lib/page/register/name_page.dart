@@ -28,6 +28,9 @@ class _State extends ConsumerState<NamePage> {
         ),
         body: Padding(
             padding: EdgeInsets.all(10),
+            child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 image != null ? Image.memory(image) : const SizedBox.shrink(),
@@ -55,6 +58,8 @@ class _State extends ConsumerState<NamePage> {
               ],
             )
         )
+    )
+    )
     );
   }
 }
