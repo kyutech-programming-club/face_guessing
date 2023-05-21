@@ -22,6 +22,7 @@ class QuizPage extends ConsumerStatefulWidget {
 class _QuizPageState extends ConsumerState<QuizPage> {
   double time_counter = 30;
   int ramdomindex = 0;
+  Timer? timer;
 
   @override
   void initState() {
@@ -29,7 +30,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
     super.initState();
     // 1. Timer.periodic : 新しい繰り返しタイマーを作成します
     // 1秒ごとに _counterを1ずつ足していく
-    Timer.periodic(
+    timer = Timer.periodic(
       // 第一引数：繰り返す間隔の時間を設定
       const Duration(seconds: 1),
       // 第二引数：その間隔ごとに動作させたい処理を書く
@@ -129,7 +130,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
               alignment: Alignment.centerRight,
               child: Container(
                 height: 400,
-                width: 134,
+                width: 133,
                 child: QuizButtonRight(
                   time_counter: time_counter,
                   onPressed: () async{
