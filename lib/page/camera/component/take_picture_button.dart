@@ -40,7 +40,7 @@ class TakePictureButton extends ConsumerWidget {
                 20,
                 top * targetImage.height / context.screenHeight + 60,
                 context.screenWidth * targetImage.width / context.screenWidth,
-                180 * targetImage.height / context.screenHeight,
+                580 * targetImage.height / context.screenHeight,
               ),
             ],
           );
