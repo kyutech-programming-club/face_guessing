@@ -11,5 +11,6 @@ class UserEntity with _$UserEntity {
   const factory UserEntity({
     required String name,
     required Uint8List imageValue,
+    required int score,
   }) = _UserEntity;
 }

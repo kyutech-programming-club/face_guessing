@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:face_guessing/page/quiz/component/face.dart';
 import 'package:face_guessing/page/quiz/component/quiz_button.dart';
@@ -18,9 +19,11 @@ class QuizPage extends ConsumerStatefulWidget {
 
 class _QuizPageState extends ConsumerState<QuizPage> {
   double time_counter = 30;
+  int ramdomindex = 0;
 
   @override
   void initState() {
+    ramdomindex = Random().nextInt(4);
     super.initState();
     // 1. Timer.periodic : 新しい繰り返しタイマーを作成します
     // 1秒ごとに _counterを1ずつ足していく
@@ -39,10 +42,14 @@ class _QuizPageState extends ConsumerState<QuizPage> {
   Widget build(BuildContext context) {
     final _deviceWidth = MediaQuery.of(context).size.width;
     final _deviceHeight = MediaQuery.of(context).size.height;
-    final score1 = ref.watch(Player1Score);
-    final score2 = ref.watch(Player2Score);
-    final score3 = ref.watch(Player3Score);
-    final score4 = ref.watch(Player4Score);
+    final userlist = ref.watch(userEntitiesProvider);
+    final score1 = userlist[0].score;
+    final score3 = userlist[2].score;
+    final user1 = userlist[0].name;
+    final user2 = userlist[1].name;
+    final user3 = userlist[2].name;
+    final user4 = userlist[3].name;
+    final currentimage = userlist[ramdomindex].imageValue;
 
     return Scaffold(
       body: SizedBox(
@@ -51,7 +58,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
         child: Stack(
           children: [
            Center(
-               child: Face()
+               child: Face(image: currentimage,)
            ) ,
            Align(
              alignment: Alignment.topCenter,
@@ -67,11 +74,12 @@ class _QuizPageState extends ConsumerState<QuizPage> {
                            context: context,
                            barrierDismissible: false,
                            builder: (_) {
-                             return Dialog(player: "プレイヤー１", rotate: pi,);
+                             return Dialog(player: user1, rotate: pi, index: ramdomindex,);
                            });
                        },
                      score: score1,
                      color: Colors.deepOrangeAccent,
+                     name: user1,
                    ),
                  ),
              ),
@@ -88,11 +96,12 @@ class _QuizPageState extends ConsumerState<QuizPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) {
-                          return Dialog(player: 'プレイヤー３', rotate: 0,);
+                          return Dialog(player: user3, rotate: 0, index: ramdomindex,);
                         });
                     },
                   score: score3,
                   color: Colors.lightBlueAccent,
+                  name: user3,
                 ),
               ),
             ),
@@ -108,7 +117,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) {
-                          return Dialog(player: 'プレイヤー２', rotate: pi / 2,);
+                          return Dialog(player: user2, rotate: pi / 2, index: ramdomindex,);
                         });
                     },
                 )
@@ -126,7 +135,7 @@ class _QuizPageState extends ConsumerState<QuizPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) {
-                          return Dialog(player: 'プレイヤー４', rotate: 3 * pi / 2,);
+                          return Dialog(player: user4, rotate: 3 * pi / 2, index: ramdomindex,);
                         });
                     },
                 )
@@ -139,32 +148,140 @@ class _QuizPageState extends ConsumerState<QuizPage> {
   }
 }
 
-class Dialog extends StatelessWidget {
+class Dialog extends ConsumerWidget {
   final String player;
   final double rotate;
-  const Dialog({Key? key, required this.player, required this.rotate}) : super(key: key);
+  final int index;
+  const Dialog({Key? key, required this.player, required this.rotate, required this.index}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userlist = ref.watch(userEntitiesProvider);
+    String choice1 = userlist[0].name;
+    String choice2 = userlist[1].name;
+    String choice3 = userlist[2].name;
+    String choice4 = userlist[3].name;
+    String correct = userlist[index].name;
     return Transform.rotate(
       angle: rotate,
       child: SimpleDialog(
         title: Text("$playerの回答"),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         children: [
           SimpleDialogOption(
-            child: Text("選択肢1"),
+            child: Text(choice1),
+            onPressed: (){
+              if(choice1 == correct){
+                ref.read(userEntitiesProvider.notifier).addScore(player);
+                showDialog<void>(
+                    context: context,
+                    builder: (_) {
+                      return popupanswer(title: "Congratulation!", index: index);
+                    });
+              }else{
+                showDialog<void>(
+                    context: context,
+                    builder: (_) {
+                      return popupanswer(title: "Miss...", index: index);
+                    });
+              }
+            },
           ),
           SimpleDialogOption(
-            child: Text("選択肢2"),
+            child: Text(choice2),
+            onPressed: (){
+              if(choice2 == correct){
+                ref.read(userEntitiesProvider.notifier).addScore(player);
+                showDialog<void>(
+                    context: context,
+                    builder: (_) {
+                      return popupanswer(title: "Congratulation!", index: index);
+                    });
+              }else{
+                showDialog<void>(
+                    context: context,
+                    builder: (_) {
+                      return popupanswer(title: "Miss...", index: index);
+                    });
+              }
+            },
           ),
           SimpleDialogOption(
-            child: Text("選択肢3"),
+            child: Text(choice3),
+            onPressed: (){
+              if(choice3 == correct){
+                ref.read(userEntitiesProvider.notifier).addScore(player);
+                showDialog<void>(
+                    context: context,
+                    builder: (_) {
+                      return popupanswer(title: "Congratulation!", index: index);
+                    });
+              }else{
+                showDialog<void>(
+                    context: context,
+                    builder: (_) {
+                      return popupanswer(title: "Miss...", index: index);
+                    });
+              }
+            },
           ),
           SimpleDialogOption(
-            child: Text("選択肢4"),
+            child: Text(choice4),
+            onPressed: (){
+              if(choice4 == correct){
+                ref.read(userEntitiesProvider.notifier).addScore(player);
+                showDialog<void>(
+                    context: context,
+                    builder: (_) {
+                      return popupanswer(title: "Congratulation!", index: index);
+                    });
+              }else{
+                showDialog<void>(
+                    context: context,
+                    builder: (_) {
+                      return popupanswer(title: "Miss...", index: index);
+                    });
+              }
+            },
           ),
         ],
       ),
     );
   }
 }
+
+class popupanswer extends ConsumerWidget {
+  final String title;
+  final int index;
+
+  const popupanswer({Key? key, required this.title, required this.index}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final Uint8List image = ref.watch(userEntitiesProvider)[index].imageValue;
+    return AlertDialog(
+      title: Text(title),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      content: Image.memory(image),
+      actions: <Widget>[
+        GestureDetector(
+          child: Text("OK",
+            style: TextStyle(
+              fontSize: 30,
+            ),
+          ),
+          onTap: (){
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (BuildContext context) => const QuizPage())
+                );
+          },
+        )
+      ],
+    );
+  }
+}
+
