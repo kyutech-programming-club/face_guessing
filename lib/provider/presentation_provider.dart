@@ -23,11 +23,6 @@ final cameraProvider = FutureProvider.autoDispose<CameraController?>(
 
 final faceImageProvider = StateProvider<Uint8List?>((ref) => null);
 
-final Player1Score = StateProvider<int>((ref) => 100);
-final Player2Score = StateProvider<int>((ref) => 0);
-final Player3Score = StateProvider<int>((ref) => 0);
-final Player4Score = StateProvider<int>((ref) => 0);
-
 class UserEntitiesNotifier extends Notifier<List<UserEntity>> {
     // We initialize the list of userEntities to an empty list
     @override
@@ -45,10 +40,18 @@ class UserEntitiesNotifier extends Notifier<List<UserEntity>> {
                 if (userEntity.name != userEntityName) userEntity,
         ];
     }
-}
 
+    void addScore(String answerUserName) {
+        state = [
+            for (final userEntity in state)
+                userEntity.name != answerUserName ? userEntity : userEntity
+                    .copyWith.call(score: userEntity.score + 10),
+        ];
+    }
+}
 // Finally, we are using NotifierProvider to allow the UI to interact with
 // our userEntitiesNotifier class.
-final userEntitiesProvider = NotifierProvider<UserEntitiesNotifier, List<UserEntity>>(() {
-    return UserEntitiesNotifier();
-});
+    final userEntitiesProvider = NotifierProvider<UserEntitiesNotifier,
+        List<UserEntity>>(() {
+        return UserEntitiesNotifier();
+    });

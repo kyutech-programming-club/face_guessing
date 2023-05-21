@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:face_guessing/entity/user_entity.dart';
 import 'package:face_guessing/page/camera/camera_page.dart';
+import 'package:face_guessing/page/quiz/quiz_page.dart';
 import 'package:face_guessing/provider/presentation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,7 +45,7 @@ class RegisterPage extends ConsumerWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ConfirmPage(),
+                    builder: (context) => QuizPage(),
                   ),
                 );
               },
