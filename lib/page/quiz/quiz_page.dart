@@ -6,6 +6,7 @@ import 'package:face_guessing/page/quiz/component/face.dart';
 import 'package:face_guessing/page/quiz/component/quiz_button.dart';
 import 'package:face_guessing/page/quiz/component/transformed_left_button.dart';
 import 'package:face_guessing/page/quiz/component/transformed_right_button.dart';
+import 'package:face_guessing/page/ranking/ranking_page.dart';
 import 'package:face_guessing/page/register/component/register_page.dart';
 import 'package:face_guessing/provider/presentation_provider.dart';
 import 'package:flutter/material.dart';
@@ -279,18 +280,16 @@ class popupanswer extends ConsumerWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        content: SizedBox(
-          height: 200,
-          child: Column(
-            children: [
-              Image.memory(image),
-              Text(correct,
-              style: TextStyle(
-                fontSize: 30,
-              ),
-              ),
-            ],
-          ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.memory(image),
+            Text(correct,
+            style: TextStyle(
+              fontSize: 30,
+            ),
+            ),
+          ],
         ),
         actions: <Widget>[
           GestureDetector(
@@ -327,7 +326,7 @@ class popupanswer extends ConsumerWidget {
               ),
               onPressed: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (BuildContext context) => const RegisterPage())
+                    MaterialPageRoute(builder: (BuildContext context) => const RankingPage())
                 );
               },
             ),
