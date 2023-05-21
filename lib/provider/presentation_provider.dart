@@ -48,6 +48,9 @@ class UserEntitiesNotifier extends Notifier<List<UserEntity>> {
                     .copyWith.call(score: userEntity.score + 10),
         ];
     }
+    void ClearUserentity(){
+        state = [];
+    }
 }
 // Finally, we are using NotifierProvider to allow the UI to interact with
 // our userEntitiesNotifier class.
