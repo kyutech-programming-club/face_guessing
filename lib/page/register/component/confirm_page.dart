@@ -46,6 +46,7 @@ class ConfirmPage extends ConsumerWidget {
                   },
                 label: Text("撮影"),
                 ),
+
               ),
 
               // 下のFAB
