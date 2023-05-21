@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UserEntity {
   String get name => throw _privateConstructorUsedError;
   Uint8List get imageValue => throw _privateConstructorUsedError;
+  int get score => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserEntityCopyWith<UserEntity> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $UserEntityCopyWith<$Res> {
           UserEntity value, $Res Function(UserEntity) then) =
       _$UserEntityCopyWithImpl<$Res, UserEntity>;
   @useResult
-  $Res call({String name, Uint8List imageValue});
+  $Res call({String name, Uint8List imageValue, int score});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
   $Res call({
     Object? name = null,
     Object? imageValue = null,
+    Object? score = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -58,6 +60,10 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
           ? _value.imageValue
           : imageValue // ignore: cast_nullable_to_non_nullable
               as Uint8List,
+      score: null == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$_UserEntityCopyWith<$Res>
       __$$_UserEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, Uint8List imageValue});
+  $Res call({String name, Uint8List imageValue, int score});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$_UserEntityCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? imageValue = null,
+    Object? score = null,
   }) {
     return _then(_$_UserEntity(
       name: null == name
@@ -96,6 +103,10 @@ class __$$_UserEntityCopyWithImpl<$Res>
           ? _value.imageValue
           : imageValue // ignore: cast_nullable_to_non_nullable
               as Uint8List,
+      score: null == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -103,17 +114,20 @@ class __$$_UserEntityCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UserEntity extends _UserEntity {
-  const _$_UserEntity({required this.name, required this.imageValue})
+  const _$_UserEntity(
+      {required this.name, required this.imageValue, required this.score})
       : super._();
 
   @override
   final String name;
   @override
   final Uint8List imageValue;
+  @override
+  final int score;
 
   @override
   String toString() {
-    return 'UserEntity(name: $name, imageValue: $imageValue)';
+    return 'UserEntity(name: $name, imageValue: $imageValue, score: $score)';
   }
 
   @override
@@ -123,12 +137,13 @@ class _$_UserEntity extends _UserEntity {
             other is _$_UserEntity &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
-                .equals(other.imageValue, imageValue));
+                .equals(other.imageValue, imageValue) &&
+            (identical(other.score, score) || other.score == score));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(imageValue));
+  int get hashCode => Object.hash(runtimeType, name,
+      const DeepCollectionEquality().hash(imageValue), score);
 
   @JsonKey(ignore: true)
   @override
@@ -140,13 +155,16 @@ class _$_UserEntity extends _UserEntity {
 abstract class _UserEntity extends UserEntity {
   const factory _UserEntity(
       {required final String name,
-      required final Uint8List imageValue}) = _$_UserEntity;
+      required final Uint8List imageValue,
+      required final int score}) = _$_UserEntity;
   const _UserEntity._() : super._();
 
   @override
   String get name;
   @override
   Uint8List get imageValue;
+  @override
+  int get score;
   @override
   @JsonKey(ignore: true)
   _$$_UserEntityCopyWith<_$_UserEntity> get copyWith =>
