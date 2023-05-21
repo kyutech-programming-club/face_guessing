@@ -12,7 +12,7 @@ final cameraProvider = FutureProvider.autoDispose<CameraController?>(
     if (cameras.isEmpty) {
       return null;
     }
-    final camera = cameras.first;
+    final camera = cameras[1];
     final controller =
     CameraController(camera, ResolutionPreset.high, enableAudio: false);
     await controller.initialize();
